@@ -56,17 +56,23 @@ public class AsteroidsPlayerController : MonoBehaviour
 
     private void HandleRotation()
     {
-
+        transform.Rotate(0f, 0f, -rotationInput * rotationSpeed * Time.deltaTime);
     }
 
     private void HandleThrust()
     {
-        
+        if (thrustInput > 0)
+        {
+            rb.AddForce(transform.up * thrustForce * Time.fixedDeltaTime);
+        }
     }
 
     private void HandleFire()
     {
-
+        if (Input.GetButtonDown("Fire1"))
+        {
+            FireBullet();
+        }
     }
 
     private void FireBullet()
@@ -89,6 +95,6 @@ public class AsteroidsPlayerController : MonoBehaviour
 
     private void TeleportToRandomLocation()
     {
-
+        Vector2 randomPosition = ScreenBounds.GetRandomPosition();
     }
 }
