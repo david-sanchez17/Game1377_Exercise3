@@ -27,13 +27,12 @@ using UnityEngine;
 public class AsteroidsPlayerController : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private float rotationSpeed = 360f;
-    [SerializeField] private float thrustForce = 500f;
     [SerializeField] private Transform firePoint;
     [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private float rotationSpeed = 360f;
+    [SerializeField] private float thrustForce = 500f;
 
     private float rotationInput;
-    private float thrustInput;
 
     void Start()
     {
@@ -43,10 +42,11 @@ public class AsteroidsPlayerController : MonoBehaviour
     void Update()
     {
         rotationInput = Input.GetAxis("Horizontal");
-        thrustInput = Input.GetAxis("Vertical");
+
         HandleRotation();
         HandleFire();
         HandleHyperspace();
+        HandleScreenWrap();
     }
 
     void FixedUpdate()
@@ -61,7 +61,8 @@ public class AsteroidsPlayerController : MonoBehaviour
 
     private void HandleThrust()
     {
-        if (thrustInput > 0)
+   
+        if (Input.GetKey(KeyCode.W))
         {
             rb.AddForce(transform.up * thrustForce * Time.fixedDeltaTime);
         }
@@ -74,20 +75,19 @@ public class AsteroidsPlayerController : MonoBehaviour
             FireBullet();
         }
     }
-
     private void FireBullet()
     {
-        if (bulletPrefab == null)
+        if (bulletPrefab == null || firePoint == null)
         {
-            Debug.LogWarning("Bullet prefab not assigned!");
+            Debug.LogWarning("Bullet Prefab is missing");
             return;
         }
-        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-    }
 
+        Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+    }
     private void HandleHyperspace()
     {
-        if (Input.GetButtonDown("Fire2"))
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             TeleportToRandomLocation();
         }
@@ -97,7 +97,31 @@ public class AsteroidsPlayerController : MonoBehaviour
     {
         float randomX = Random.Range(ScreenBounds.ScreenLeft, ScreenBounds.ScreenRight);
         float randomY = Random.Range(ScreenBounds.ScreenBottom, ScreenBounds.ScreenTop);
-        Vector2 randomPosition = new Vector2(randomX, randomY);
-        transform.position = randomPosition;
+
+        transform.position = new Vector2(randomX, randomY);
+    }
+    private void HandleScreenWrap()
+    {
+        Vector2 position = transform.position;
+
+        if (position.x > ScreenBounds.ScreenRight)
+        {
+            position.x = ScreenBounds.ScreenLeft;
+        }
+        else if (position.x < ScreenBounds.ScreenLeft)
+        {
+            position.x = ScreenBounds.ScreenRight;
+        }
+
+        if (position.y > ScreenBounds.ScreenTop)
+        {
+            position.y = ScreenBounds.ScreenBottom;
+        }
+        else if (position.y < ScreenBounds.ScreenBottom)
+        {
+            position.y = ScreenBounds.ScreenTop;
+        }
+
+        transform.position = position;
     }
 }
