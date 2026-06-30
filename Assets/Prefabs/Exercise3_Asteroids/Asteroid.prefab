@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -3732927969261725758}
   m_Layer: 0
   m_Name: Asteroid
-  m_TagString: Untagged
+  m_TagString: Asteroid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -174,8 +174,6 @@ MonoBehaviour:
   speed: 2
   minRotationSpeed: -180
   maxRotationSpeed: 180
-  childrenCount: 2
-  childSpawnRadius: 0.5
 --- !u!114 &-3732927969261725758
 MonoBehaviour:
   m_ObjectHideFlags: 0
