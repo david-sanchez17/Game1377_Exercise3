@@ -83,5 +83,9 @@ public class AsteroidSpawner : MonoBehaviour
                 asteroidPrefab = mediumAsteroidPrefab;
                 break;
         }
+        if (asteroidPrefab != null)
+        {
+            Instantiate(asteroidPrefab, position, Quaternion.Euler(0f, 0f, Random.Range(0f, 360f)));
+        }
     }
 }

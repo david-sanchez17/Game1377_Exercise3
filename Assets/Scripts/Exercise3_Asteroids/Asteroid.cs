@@ -21,7 +21,7 @@ public class Asteroid : MonoBehaviour
     public enum AsteroidSize { Small, Medium, Large }
 
     [SerializeField] private AsteroidSize size;
-    [SerializeField] private float speed; =5f;
+    [SerializeField] private float speed =5f;
     [SerializeField] private float minRotationSpeed = -180f;
     [SerializeField] private float maxRotationSpeed = 180f;
 
@@ -31,21 +31,14 @@ public class Asteroid : MonoBehaviour
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent < Rigidbody2D>();
 
         spawner = FindAnyObjectByType<AsteroidSpawner>();
 
-        velocity = transform.up * speed;
-        rb.linearVelocity = velocity;
+        rb.linearVelocity = transform.up * speed;
 
         rb.angularVelocity = Random.Range(minRotationSpeed, maxRotationSpeed);
     }
-
-    void Update()
-    {
-
-    }
-
     private void BreakAsteroid()
     {
         if (size == AsteroidSize.Large)
@@ -63,16 +56,16 @@ public class Asteroid : MonoBehaviour
     {
         if (spawner == null)
             return;
-
-        spawner.SpawnAsteroids(transform.position, childSize);
-        spawner.SpawnAsteroids(transform.position, childSize);
+        spawner.SpawnAsteroid(transform.position, childSize);
+        spawner.SpawnAsteroid(transform.position, childSize);
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag ("Player"))
         {
             Destroy(collision.gameObject);
         }
+
         if (collision.gameObject.CompareTag("Bullet"))
         {
             Destroy(collision.gameObject);
