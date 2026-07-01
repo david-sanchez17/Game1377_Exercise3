@@ -31,20 +31,39 @@ public class Asteroid : MonoBehaviour
 
     void Start()
     {
-    
+        rb = GetComponent<Rigidbody2D>();
+
+        spawner = FindAnyObjectByType<AsteroidSpawner>();
+
+        velocity = transform.up * speed;
+        rb.linearVelocity = velocity;
+
+        rb.angularVelocity = Random.Range(minRotationSpeed, maxRotationSpeed);
     }
 
     void Update()
     {
+
     }
 
     private void BreakAsteroid()
     {
-
+        if (size == AsteroidSize.Large)
+        {
+            SpawnChildren(AsteroidSize.Medium);
+        }
+        else if (size == AsteroidSize.Medium)
+        {
+            SpawnChildren(AsteroidSize.Small);
+        }
+        Destroy(gameObject);
     }
 
     private void SpawnChildren(AsteroidSize childSize)
     {
-        
+        if (spawner == null)
+            return;
+
+       
     }
 }

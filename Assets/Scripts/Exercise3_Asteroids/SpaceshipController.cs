@@ -84,6 +84,7 @@ public class AsteroidsPlayerController : MonoBehaviour
         }
 
         Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        Debug.Log(firePoint.position);
     }
     private void HandleHyperspace()
     {
