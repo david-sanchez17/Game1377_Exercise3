@@ -21,6 +21,13 @@ public class AsteroidSpawner : MonoBehaviour
 {
     // These variables determine the spawn area for the asteroids.
     // They are calculated at Start based off of the camera size. 
+
+    [SerializeField] private GameObject largeAsteroidPrefab;
+    [SerializeField] private GameObject mediumAsteroidPrefab;
+    [SerializeField] private GameObject smallAsteroidPrefab;
+
+    [SerializeField] private int startingAsteroids = 5;
+
     private float spawnXMax = 0f;
     private float spawnXMin = 0f;
     private float spawnYMax = 0f;
@@ -45,11 +52,36 @@ public class AsteroidSpawner : MonoBehaviour
 
     private void SpawnInitialAsteroids()
     {
-        // Spawn initial asteroids at random positions. Ensure that they do not spawn where the player is located. 
-    }
+        for (int i = 0; i < startingAsteroids; i++)
+        {
+            Vector3 spawnPosition;
 
+            // Keep picking a position until it's far enough away
+            do
+            {
+                float randomX = Random.Range(spawnXMin, spawnXMax);
+                float randomY = Random.Range(spawnYMin, spawnYMax);
+
+                spawnPosition = new Vector3(randomX, randomY, 0f);
+
+            } while (Vector3.Distance(spawnPosition, Vector3.zero) < playerSafeDistance);
+
+            // Spawn a large asteroid
+            SpawnAsteroid(spawnPosition, Asteroid.AsteroidSize.Large);
+        }
+    }
     public void SpawnAsteroid(Vector3 position, Asteroid.AsteroidSize size)
     {
-       // Spawn an asteroid at the location specified by position parameter with the size specified by the size parameter.
+        GameObject asteroidPrefab = null;
+        switch (size)
+        {
+            case Asteroid.AsteroidSize.Large:
+                asteroidPrefab = largeAsteroidPrefab;
+                break;
+
+            case Asteroid.AsteroidSize.Medium:
+                asteroidPrefab = mediumAsteroidPrefab;
+                break;
+        }
     }
 }
