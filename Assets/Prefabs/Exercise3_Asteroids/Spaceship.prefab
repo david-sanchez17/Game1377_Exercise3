@@ -151,7 +151,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!114 &642762768615809231
 MonoBehaviour:
@@ -166,10 +166,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AsteroidsController
   rb: {fileID: 7819064381781324238}
-  rotationSpeed: 360
-  thrustForce: 10
   firePoint: {fileID: 4891399443925276179}
   bulletPrefab: {fileID: 3228296954555013032, guid: 52cccc2c5f12b974181a934a78b783a6, type: 3}
+  rotationSpeed: 360
+  thrustForce: 10
 --- !u!114 &6242665358419688883
 MonoBehaviour:
   m_ObjectHideFlags: 0

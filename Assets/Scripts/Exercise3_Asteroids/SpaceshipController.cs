@@ -46,7 +46,6 @@ public class AsteroidsPlayerController : MonoBehaviour
         HandleRotation();
         HandleFire();
         HandleHyperspace();
-        HandleScreenWrap();
     }
 
     void FixedUpdate()
@@ -62,7 +61,7 @@ public class AsteroidsPlayerController : MonoBehaviour
     private void HandleThrust()
     {
    
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetButtonDown("Thrust"))
         {
             rb.AddForce(transform.up * thrustForce * Time.fixedDeltaTime);
         }
@@ -88,7 +87,7 @@ public class AsteroidsPlayerController : MonoBehaviour
     }
     private void HandleHyperspace()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetButtonDown("Hyperspace"))
         {
             TeleportToRandomLocation();
         }
@@ -100,29 +99,5 @@ public class AsteroidsPlayerController : MonoBehaviour
         float randomY = Random.Range(ScreenBounds.ScreenBottom, ScreenBounds.ScreenTop);
 
         transform.position = new Vector2(randomX, randomY);
-    }
-    private void HandleScreenWrap()
-    {
-        Vector2 position = transform.position;
-
-        if (position.x > ScreenBounds.ScreenRight)
-        {
-            position.x = ScreenBounds.ScreenLeft;
-        }
-        else if (position.x < ScreenBounds.ScreenLeft)
-        {
-            position.x = ScreenBounds.ScreenRight;
-        }
-
-        if (position.y > ScreenBounds.ScreenTop)
-        {
-            position.y = ScreenBounds.ScreenBottom;
-        }
-        else if (position.y < ScreenBounds.ScreenBottom)
-        {
-            position.y = ScreenBounds.ScreenTop;
-        }
-
-        transform.position = position;
     }
 }
