@@ -40,7 +40,7 @@ public class AsteroidsPlayerController : MonoBehaviour
 
     [Header("Lives")]
     [SerializeField] private int lives = 2;
-    [SerializeField] private float respawnInvincibility = 3f;
+    [SerializeField] private float invincibleTime = 3f;
 
     [Header("Power Up Durations")]
     [SerializeField] private float speedBoostDuration = 5f;
@@ -138,33 +138,41 @@ public class AsteroidsPlayerController : MonoBehaviour
 
     private void TeleportToRandomLocation()
     {
-        float randomX = Random.Range(ScreenBounds.ScreenLeft, ScreenBounds.ScreenRight);
-        float randomY = Random.Range(ScreenBounds.ScreenBottom, ScreenBounds.ScreenTop);
-
-        transform.position = new Vector2(randomX, randomY);
+        Vector2 randomPosition;
+        do
+        {
+            randomPosition = new Vector2(Random.Range(ScreenBounds.ScreenLeft, ScreenBounds.ScreenRight), Random.Range(ScreenBounds.ScreenBottom, ScreenBounds.ScreenTop));
+        }
+        while (Physics2D.OverlapCircle(randomPosition, 1.5f));
+        transform.position = randomPosition;
+        if (animator != null)
+            animator.SetTrigger("Hyperspace");
+        if (hyperspaceSound != null)
+            audioSource.PlayOneShot(hyperspaceSound);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Asteroid"))
         {
-            Die();
+           if (!isInvincible)
+            {
+                LoseLife();
+            }
         }
     }
-    private void Die()
-    {
-        Debug.Log("YOU DIED");
-        //Destroys player
-        Destroy(gameObject);
-    }
-
+    
     private void LoseLife()
     {
         lives--;
-            if (lives > 0)
+        if (animator != null)
+            animator.SetTrigger("Die");
+        if (deathSound != null)
+            audioSource.PlayOneShot(deathSound);
+
+        if (lives > 0)
         {
-            transform.position = Vector3.zero;
-            StartCoroutine(RespawnInvincibility());
+            StartCoroutine(Respawn());
         }
         else
         {
@@ -172,11 +180,47 @@ public class AsteroidsPlayerController : MonoBehaviour
         }
     }
 
-    private IEnumerator RespawnInvincibility()
+    private IEnumerator Respawn()
     {
+        transform.position = Vector3.zero;
+        rb.linearVelocity = Vector2.zero;
+        rb.angularVelocity = 0f;
+
         isInvincible = true;
-        yield return new WaitForSeconds(respawnInvincibility);
+        yield return new WaitForSeconds(invincibleTime);
         isInvincible = false;
+    }
+   
+    //Power Ups
+    public void AddLife()
+    {
+        lives++;
+    }
+    public void ActivateSpeedBoost()
+    {
+        StartCoroutine(SpeedBoostRoutine());
+    }
+    private IEnumerator SpeedBoostRoutine()
+    {
+        rotationSpeed *= 2f;
+        thrustForce *= 2f;
+
+        yield return new WaitForSeconds(speedBoostDuration);
+
+        rotationSpeed = normalRotationSpeed;
+        thrustForce = normalThrustForce;
+    }
+
+    public void ActivateBigBullets()
+    {
+        StartCoroutine(BigBulletRoutine());
+    }
+    
+    private IEnumerator BigBulletRoutine()
+    {
+        bulletScale = 2f;
+        yield return new WaitForSeconds(bigBulletDuration);
+        bulletScale = 1f;
     }
     
 }
