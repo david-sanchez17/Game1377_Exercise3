@@ -23,26 +23,54 @@
  */
 
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AsteroidsPlayerController : MonoBehaviour
 {
+    [Header("Movement")]
     [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private Transform firePoint;
-    [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private float rotationSpeed = 360f;
     [SerializeField] private float thrustForce = 500f;
 
+    [Header("Shooting")]
+    [SerializeField] private Transform firePoint;
+    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private float fireCooldown = 0.25f;
+
+    [Header("Lives")]
     [SerializeField] private int lives = 2;
     [SerializeField] private float respawnInvincibility = 3f;
 
-    private bool isInvincible = false;
+    [Header("Power Up Durations")]
+    [SerializeField] private float speedBoostDuration = 5f;
+    [SerializeField] private float bigBulletDuration = 5f;
+
+    [Header("Effects")]
+    [SerializeField] private Animator animator;
+    [SerializeField] private AudioClip fireSound;
+    [SerializeField] private AudioClip thrustSound;
+    [SerializeField] private AudioClip deathSound;
+    [SerializeField] private AudioClip hyperspaceSound;
+
+    private AudioSource audioSource;
 
     private float rotationInput;
+    private float nextFireTime;
+ 
+    private bool isInvincible = false;
+
+    private float normalRotationSpeed;
+    private float normalThrustForce;
+
+    private float bulletScale = 1f;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        audioSource = GetComponent<AudioSource>();
+        normalRotationSpeed = rotationSpeed;
+        normalThrustForce = thrustForce;
     }
 
     void Update()
@@ -69,27 +97,37 @@ public class AsteroidsPlayerController : MonoBehaviour
    
         if (Input.GetButtonDown("Thrust"))
         {
-            rb.AddForce(transform.up * thrustForce);
+            rb.AddForce(transform.up * thrustForce * Time.fixedDeltaTime);
+            if (animator != null)
+                animator.SetBool("Thrust", true);
+            if (!audioSource.isPlaying && thrustSound != null)
+                audioSource.PlayOneShot(thrustSound);
+        }
+        else
+        {
+            if (animator != null)
+                animator.SetBool("Thrust", false);
         }
     }
 
     private void HandleFire()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") && Time.time >= nextFireTime)
         {
             FireBullet();
         }
     }
     private void FireBullet()
     {
-        if (bulletPrefab == null || firePoint == null)
-        {
-            Debug.LogWarning("Bullet Prefab is missing");
-            return;
-        }
+        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        bullet.transform.localScale *= bulletScale;
 
-        Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        if (animator != null)
+            animator.SetTrigger("Fire");
+        if (fireSound != null)
+            audioSource.PlayOneShot(fireSound);
     }
+    
     private void HandleHyperspace()
     {
         if (Input.GetButtonDown("Hyperspace"))
@@ -140,4 +178,5 @@ public class AsteroidsPlayerController : MonoBehaviour
         yield return new WaitForSeconds(respawnInvincibility);
         isInvincible = false;
     }
+    
 }
