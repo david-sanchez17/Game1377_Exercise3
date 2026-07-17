@@ -22,6 +22,7 @@
  
  */
 
+using System.Collections;
 using UnityEngine;
 
 public class AsteroidsPlayerController : MonoBehaviour
@@ -32,7 +33,10 @@ public class AsteroidsPlayerController : MonoBehaviour
     [SerializeField] private float rotationSpeed = 360f;
     [SerializeField] private float thrustForce = 500f;
 
+    [SerializeField] private int lives = 2;
+    [SerializeField] private float respawnInvincibility = 3f;
 
+    private bool isInvincible = false;
 
     private float rotationInput;
 
@@ -114,5 +118,26 @@ public class AsteroidsPlayerController : MonoBehaviour
         Debug.Log("YOU DIED");
         //Destroys player
         Destroy(gameObject);
+    }
+
+    private void LoseLife()
+    {
+        lives--;
+            if (lives > 0)
+        {
+            transform.position = Vector3.zero;
+            StartCoroutine(RespawnInvincibility());
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private IEnumerator RespawnInvincibility()
+    {
+        isInvincible = true;
+        yield return new WaitForSeconds(respawnInvincibility);
+        isInvincible = false;
     }
 }
