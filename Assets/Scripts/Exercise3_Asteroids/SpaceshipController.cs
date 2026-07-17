@@ -32,6 +32,8 @@ public class AsteroidsPlayerController : MonoBehaviour
     [SerializeField] private float rotationSpeed = 360f;
     [SerializeField] private float thrustForce = 500f;
 
+
+
     private float rotationInput;
 
     void Start()
@@ -63,7 +65,7 @@ public class AsteroidsPlayerController : MonoBehaviour
    
         if (Input.GetButtonDown("Thrust"))
         {
-            rb.AddForce(transform.up * thrustForce * Time.fixedDeltaTime);
+            rb.AddForce(transform.up * thrustForce);
         }
     }
 
@@ -83,7 +85,6 @@ public class AsteroidsPlayerController : MonoBehaviour
         }
 
         Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-        Debug.Log(firePoint.position);
     }
     private void HandleHyperspace()
     {
@@ -99,5 +100,19 @@ public class AsteroidsPlayerController : MonoBehaviour
         float randomY = Random.Range(ScreenBounds.ScreenBottom, ScreenBounds.ScreenTop);
 
         transform.position = new Vector2(randomX, randomY);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Asteroid"))
+        {
+            Die();
+        }
+    }
+    private void Die()
+    {
+        Debug.Log("YOU DIED");
+        //Destroys player
+        Destroy(gameObject);
     }
 }
