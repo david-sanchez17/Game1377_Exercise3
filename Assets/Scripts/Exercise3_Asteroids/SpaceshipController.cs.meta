@@ -1,2 +1,19 @@
 fileFormatVersion: 2
 guid: ab058952446d3ad46a29856a428995e2
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - rb: {instanceID: 0}
+  - firePoint: {instanceID: 0}
+  - bulletPrefab: {fileID: 3228296954555013032, guid: 52cccc2c5f12b974181a934a78b783a6, type: 3}
+  - animator: {instanceID: 0}
+  - fireSound: {instanceID: 0}
+  - thrustSound: {instanceID: 0}
+  - deathSound: {instanceID: 0}
+  - hyperspaceSound: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
