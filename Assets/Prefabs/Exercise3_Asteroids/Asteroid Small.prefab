@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1146724426389123610, guid: 91552452341758443a49a0520fe30970, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1798982588, guid: a5b40c0ed6cee3445a4f2b19129b80b0, type: 3}
     - target: {fileID: 2309046399799405609, guid: 91552452341758443a49a0520fe30970, type: 3}
       propertyPath: size
       value: 0

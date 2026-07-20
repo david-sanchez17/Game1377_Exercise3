@@ -31,7 +31,7 @@ public class AsteroidsPlayerController : MonoBehaviour
     [Header("Movement")]
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private float rotationSpeed = 360f;
-    [SerializeField] private float thrustForce = 500f;
+    [SerializeField] private float thrustForce = 50f;
 
     [Header("Shooting")]
     [SerializeField] private Transform firePoint;
@@ -94,12 +94,13 @@ public class AsteroidsPlayerController : MonoBehaviour
 
     private void HandleThrust()
     {
-   
-        if (Input.GetButtonDown("Thrust"))
+        if (Input.GetButton("Thrust"))
         {
-            rb.AddForce(transform.up * thrustForce * Time.fixedDeltaTime);
+            rb.AddForce(transform.up * thrustForce);
+
             if (animator != null)
                 animator.SetBool("Thrust", true);
+
             if (!audioSource.isPlaying && thrustSound != null)
                 audioSource.PlayOneShot(thrustSound);
         }

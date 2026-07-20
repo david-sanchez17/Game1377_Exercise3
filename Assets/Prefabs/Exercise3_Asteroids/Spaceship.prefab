@@ -171,7 +171,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AsteroidsController
   rb: {fileID: 7819064381781324238}
   rotationSpeed: 360
-  thrustForce: 400
+  thrustForce: 50
   firePoint: {fileID: 4891399443925276179}
   bulletPrefab: {fileID: 3228296954555013032, guid: 52cccc2c5f12b974181a934a78b783a6, type: 3}
   fireCooldown: 0.25
@@ -180,10 +180,10 @@ MonoBehaviour:
   speedBoostDuration: 5
   bigBulletDuration: 5
   animator: {fileID: 1529246383212479564}
-  fireSound: {fileID: 0}
-  thrustSound: {fileID: 0}
-  deathSound: {fileID: 0}
-  hyperspaceSound: {fileID: 0}
+  fireSound: {fileID: 8300000, guid: ee5bd6c09c78478418bf12f55b8372f8, type: 3}
+  thrustSound: {fileID: 8300000, guid: aa59a560443f9284db72287314f95482, type: 3}
+  deathSound: {fileID: 8300000, guid: 621754f6a16bc934a9d4457ecfd7d448, type: 3}
+  hyperspaceSound: {fileID: 8300000, guid: c6cbf4555b9d9dc42ace2808784dd6c2, type: 3}
 --- !u!114 &6242665358419688883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,13 +245,13 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
+  m_Volume: 0.401
+  m_Pitch: 0.92
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 107
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -339,7 +339,7 @@ Animator:
   m_GameObject: {fileID: 2357516278731701826}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 7bee0d01da9ed8f46b1ca38cf24b5174, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -360,9 +360,9 @@ Animation:
   m_GameObject: {fileID: 2357516278731701826}
   m_Enabled: 1
   serializedVersion: 4
-  m_Animation: {fileID: 7400000, guid: f17c148a1d7485c4db4d75df51a27bfe, type: 2}
+  m_Animation: {fileID: 0}
   m_Animations:
-  - {fileID: 7400000, guid: f17c148a1d7485c4db4d75df51a27bfe, type: 2}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
