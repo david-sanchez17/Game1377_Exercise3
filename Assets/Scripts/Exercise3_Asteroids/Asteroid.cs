@@ -15,55 +15,32 @@
 */
 
 using UnityEngine;
-using System.Collections;
 
 public class Asteroid : MonoBehaviour
 {
     public enum AsteroidSize { Small, Medium, Large }
 
-    [Header("Asteroid")]
     [SerializeField] private AsteroidSize size;
-    [SerializeField] private float speed = 5f;
+    [SerializeField] private float speed =5f;
     [SerializeField] private float minRotationSpeed = -180f;
     [SerializeField] private float maxRotationSpeed = 180f;
 
-    [Header("Explosion")]
-    [SerializeField] private float explosionLength = 0.5f;
-    [SerializeField] private AudioClip explosionSound;
-
     private Rigidbody2D rb;
-    private Collider2D asteroidCollider;
-    private Animator animator;
-    private AudioSource audioSource;
     private AsteroidSpawner spawner;
-
-    private bool isExploding = false;
+    private Vector2 velocity;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        asteroidCollider = GetComponent<Collider2D>();
-        animator = GetComponent<Animator>();
-        audioSource = GetComponent<AudioSource>();
+        rb = GetComponent < Rigidbody2D>();
 
         spawner = FindAnyObjectByType<AsteroidSpawner>();
 
-        // Move in the direction the asteroid is facing
         rb.linearVelocity = transform.up * speed;
 
-        // Give the asteroid a random spin
         rb.angularVelocity = Random.Range(minRotationSpeed, maxRotationSpeed);
     }
-
     private void BreakAsteroid()
     {
-        // Prevent multiple explosions
-        if (isExploding)
-            return;
-
-        isExploding = true;
-
-        // Spawn children first
         if (size == AsteroidSize.Large)
         {
             SpawnChildren(AsteroidSize.Medium);
@@ -72,32 +49,6 @@ public class Asteroid : MonoBehaviour
         {
             SpawnChildren(AsteroidSize.Small);
         }
-
-        // Stop moving
-        rb.linearVelocity = Vector2.zero;
-        rb.angularVelocity = 0f;
-        rb.simulated = false;
-
-        // Disable collisions
-        asteroidCollider.enabled = false;
-
-        // Play explosion animation
-        animator.SetTrigger("Destroy");
-
-        // Play explosion sound
-        if (explosionSound != null)
-        {
-            audioSource.PlayOneShot(explosionSound);
-        }
-
-        // Destroy after animation finishes
-        StartCoroutine(DestroyAfterAnimation());
-    }
-
-    private IEnumerator DestroyAfterAnimation()
-    {
-        yield return new WaitForSeconds(explosionLength);
-
         Destroy(gameObject);
     }
 
@@ -105,16 +56,11 @@ public class Asteroid : MonoBehaviour
     {
         if (spawner == null)
             return;
-
         spawner.SpawnAsteroid(transform.position, childSize);
         spawner.SpawnAsteroid(transform.position, childSize);
     }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (isExploding)
-            return;
-
         if (collision.gameObject.CompareTag("Bullet"))
         {
             Destroy(collision.gameObject);
