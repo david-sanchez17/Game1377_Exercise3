@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PowerUp : MonoBehaviour
@@ -9,32 +10,26 @@ public class PowerUp : MonoBehaviour
         BigBullets
     }
 
+    [Header("Power Up")]
     [SerializeField] private PowerUpType powerUpType;
 
-    private void OnTrigger2D(Collider2D other)
+    [Header("Movement")]
+    [SerializeField] private float rotationSpeed = 90f;
+    [SerializeField] private float floatHeight = 0.25f;
+    [SerializeField] private float floatSpeed = 2f;
+
+    private Vector3 startPosition;
+
+    void Start()
     {
-        if (!other.CompareTag("Player"))
-            return;
-
-        AsteroidsPlayerController player = other.GetComponent<AsteroidsPlayerController>();
-
-        if (player == null)
-            return;
-
-        switch (powerUpType)
-        {
-            case PowerUpType.ExtraLife:
-                player.AddLife();
-                break;
-
-            case PowerUpType.SpeedBoost:
-                player.AddLife();
-                break;
-
-            case PowerUpType.BigBullets:
-                player.ActivateBigBullets();
-                break;
-        }
-        Destroy(gameObject);
+        startPosition = transform.position;
     }
+
+    void Update()
+    {
+        transform.Rotate(0f, 0f, rotationSpeed * Time.deltaTime);
+        transform.position = startPosition + Vector3.up * Mathf.Sin(Time.time * floatSpeed) * floatHeight;
+    }
+
+   
 }
