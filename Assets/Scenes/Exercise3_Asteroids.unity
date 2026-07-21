@@ -534,7 +534,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 982cccfa9c055e640a69cfb5fc3ba776, type: 3}
+  m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 0.344
   m_Pitch: 1
@@ -762,6 +762,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1592925902}
+  - component: {fileID: 1592925903}
   m_Layer: 0
   m_Name: PowerUpSpawner
   m_TagString: Untagged
@@ -784,6 +785,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1592925903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592925901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11224b19ab510ec42a1691c4e0917377, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PowerUpSpawner
+  powerUpPrefabs:
+  - {fileID: 5753963123430661567, guid: 7cf5e2632b11ab44c982a8fcf52b05f4, type: 3}
+  - {fileID: 4551079781574757287, guid: 9c97014bc9ad5c8408caead34a3da56e, type: 3}
+  spawnInterval: 15
+  maxPowerUps: 3
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

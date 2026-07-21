@@ -31,5 +31,30 @@ public class PowerUp : MonoBehaviour
         transform.position = startPosition + Vector3.up * Mathf.Sin(Time.time * floatSpeed) * floatHeight;
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (!other.CompareTag("Player"))
+            return;
+        AsteroidsPlayerController player = other.GetComponent<AsteroidsPlayerController>();
+        if (player == null)
+            return;
+
+        switch (powerUpType)
+        {
+            case PowerUpType.ExtraLife:
+                player.AddLife();
+                break;
+
+            case PowerUpType.SpeedBoost:
+                player.ActivateSpeedBoost();
+                break;
+
+            case PowerUpType.BigBullets:
+                player.ActivateBigBullets();
+                break;
+
+        }
+        Destroy(gameObject);
+    }
    
 }
