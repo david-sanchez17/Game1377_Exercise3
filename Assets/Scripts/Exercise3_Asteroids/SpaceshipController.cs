@@ -87,11 +87,18 @@ public class AsteroidsPlayerController : MonoBehaviour
         HandleThrust();
     }
 
+
+    /// <summary>
+    /// Rotates the spaceship based on the players horizontal input
+    /// </summary>
     private void HandleRotation()
     {
         transform.Rotate(0f, 0f, -rotationInput * rotationSpeed * Time.deltaTime);
     }
 
+    /// <summary>
+    /// Applies forward thrust on the spaceship while playing the thrust anim and sound effect
+    /// </summary>
     private void HandleThrust()
     {
         if (Input.GetButton("Thrust"))
@@ -111,6 +118,9 @@ public class AsteroidsPlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Checks if the player can fire and calls the method to create a new bullet
+    /// </summary>
     private void HandleFire()
     {
         if (Input.GetButtonDown("Fire1") && Time.time >= nextFireTime)
@@ -118,6 +128,10 @@ public class AsteroidsPlayerController : MonoBehaviour
             FireBullet();
         }
     }
+
+    /// <summary>
+    /// Spawns bullet at the fire point and plays fire anim and sound effect
+    /// </summary>
     private void FireBullet()
     {
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
@@ -129,6 +143,9 @@ public class AsteroidsPlayerController : MonoBehaviour
             audioSource.PlayOneShot(fireSound);
     }
     
+    /// <summary>
+    /// Checks for hyperspace input and teleports player to a safe location
+    /// </summary>
     private void HandleHyperspace()
     {
         if (Input.GetButtonDown("Hyperspace"))
@@ -137,6 +154,9 @@ public class AsteroidsPlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Moves spaceship to random location not occupied by an asteroid, also plays hyperspace anim and sound effect
+    /// </summary>
     private void TeleportToRandomLocation()
     {
         Vector2 randomPosition;
@@ -163,6 +183,9 @@ public class AsteroidsPlayerController : MonoBehaviour
         }
     }
     
+    /// <summary>
+    /// Removes one life from the player, plays death anim and sound, either respawns the player or ends the game if no lives remain
+    /// </summary>
     private void LoseLife()
     {
         lives--;
@@ -181,6 +204,11 @@ public class AsteroidsPlayerController : MonoBehaviour
         }
     }
 
+
+    /// <summary>
+    /// Respawns player at the center of the screen, resets movement, grants temperorary invincibility
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator Respawn()
     {
         transform.position = Vector3.zero;
@@ -192,15 +220,25 @@ public class AsteroidsPlayerController : MonoBehaviour
         isInvincible = false;
     }
    
-    //Power Ups
+   /// <summary>
+   /// Increases player life count by one
+   /// </summary>
     public void AddLife()
     {
         lives++;
     }
+    /// <summary>
+    /// Activates temporary movement and rotation speed boost
+    /// </summary>
     public void ActivateSpeedBoost()
     {
         StartCoroutine(SpeedBoostRoutine());
     }
+
+    /// <summary>
+    /// Temporarily increases the players movement and rotation speed before restoring the original values
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator SpeedBoostRoutine()
     {
         rotationSpeed *= 2f;
@@ -212,11 +250,18 @@ public class AsteroidsPlayerController : MonoBehaviour
         thrustForce = normalThrustForce;
     }
 
+    /// <summary>
+    /// Activates large bullet power up. duh.
+    /// </summary>
     public void ActivateBigBullets()
     {
         StartCoroutine(BigBulletRoutine());
     }
     
+    /// <summary>
+    /// Temporarily increases the size of fired bullets before restoring them to their original size
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator BigBulletRoutine()
     {
         bulletScale = 2f;
