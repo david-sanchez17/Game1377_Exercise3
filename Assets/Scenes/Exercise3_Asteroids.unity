@@ -534,7 +534,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: 47c565469f9bc6d4881e7f0ea012f7a0, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.344
   m_Pitch: 1
@@ -800,6 +800,7 @@ MonoBehaviour:
   powerUpPrefabs:
   - {fileID: 5753963123430661567, guid: 7cf5e2632b11ab44c982a8fcf52b05f4, type: 3}
   - {fileID: 4551079781574757287, guid: 9c97014bc9ad5c8408caead34a3da56e, type: 3}
+  - {fileID: 6441106742713407153, guid: 2b8232a9580486e4d88299b4533ebc32, type: 3}
   spawnInterval: 15
   maxPowerUps: 3
 --- !u!1660057539 &9223372036854775807
