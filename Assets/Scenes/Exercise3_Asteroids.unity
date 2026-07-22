@@ -651,11 +651,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &1187289376 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 1529246383212479564, guid: b5bed9ac15f324145b2fdce28eb50970, type: 3}
-  m_PrefabInstance: {fileID: 1547800500}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1547800500
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -664,18 +659,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -1935273275361500537, guid: b5bed9ac15f324145b2fdce28eb50970, type: 3}
-      propertyPath: m_Animation
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 642762768615809231, guid: b5bed9ac15f324145b2fdce28eb50970, type: 3}
-      propertyPath: animator
-      value: 
-      objectReference: {fileID: 1187289376}
-    - target: {fileID: 1416818871187660963, guid: b5bed9ac15f324145b2fdce28eb50970, type: 3}
-      propertyPath: m_TagString
-      value: Bullet
-      objectReference: {fileID: 0}
     - target: {fileID: 1529246383212479564, guid: b5bed9ac15f324145b2fdce28eb50970, type: 3}
       propertyPath: m_Controller
       value: 
@@ -683,30 +666,6 @@ PrefabInstance:
     - target: {fileID: 2357516278731701826, guid: b5bed9ac15f324145b2fdce28eb50970, type: 3}
       propertyPath: m_Name
       value: Spaceship
-      objectReference: {fileID: 0}
-    - target: {fileID: 2476298189099146482, guid: b5bed9ac15f324145b2fdce28eb50970, type: 3}
-      propertyPath: m_Size.x
-      value: 1.28
-      objectReference: {fileID: 0}
-    - target: {fileID: 2476298189099146482, guid: b5bed9ac15f324145b2fdce28eb50970, type: 3}
-      propertyPath: m_Size.y
-      value: 1.28
-      objectReference: {fileID: 0}
-    - target: {fileID: 2476298189099146482, guid: b5bed9ac15f324145b2fdce28eb50970, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 75756410, guid: 5c9768fc1222f894fb722dfc35ec83ac, type: 3}
-    - target: {fileID: 2476298189099146482, guid: b5bed9ac15f324145b2fdce28eb50970, type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5399728238154126411, guid: b5bed9ac15f324145b2fdce28eb50970, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5399728238154126411, guid: b5bed9ac15f324145b2fdce28eb50970, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5399728238154126411, guid: b5bed9ac15f324145b2fdce28eb50970, type: 3}
       propertyPath: m_LocalPosition.x
